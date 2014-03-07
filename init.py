@@ -6,13 +6,18 @@ from urlparse import urlparse
 from tempfile import mkstemp
 
 CLIENT_ID = "a7c30de4f98751b"
+x1=0
+y1=0
+x2=1280
+y2=1280
+def ghostCapture(screen_url,web_timeout=20):
 
-def ghostCapture(screen_url,web_timeout=10):
-
-    gh = Ghost(display=":99",viewport_size=(800,600),wait_timeout=int(web_timeout), ignore_ssl_errors=True,log_level=logging.FATAL)
+    gh = Ghost(display=":99",wait_timeout=int(web_timeout),viewport_size=(x2,y2), ignore_ssl_errors=True,log_level=logging.FATAL)
     ghost_page,resources= gh.open(screen_url, auth=('none', 'none'))
+
     img_path=mkstemp(suffix=".png")[1]
-    gh.capture_to(img_path)
+    gh.set_viewport_size(x2,y2)
+    gh.capture_to(img_path,region=(x1,y1,x2,y2))
 
     return img_path
 
@@ -20,7 +25,7 @@ def usage(prog):
     print("usage: %s uri"%prog)
 
 if __name__ == "__main__":
-    import sys
+    import sys,os
     url=None
     host=None
     try:
@@ -38,4 +43,5 @@ if __name__ == "__main__":
     im = pyimgur.Imgur(CLIENT_ID)
 
     uploaded = im.upload_image(image_path,title=host)
+    os.remove(image_path)
     print(uploaded.link)
