@@ -5,12 +5,7 @@ from urlparse import urlparse
 
 from tempfile import mkstemp
 
-# thanks anon dufferzafar/Python-Scripts - Imgur.py 
 CLIENT_ID = "a7c30de4f98751b"
-# CLIENT_SECRET = "a188f1467cf86eae0d7a03e289e922235128160b"
-
-# some more from  uppfinnarn/imgup - imgup.py 
-# CLIENT_ID = "bb26658e6ad2d9a"
 
 def ghostCapture(screen_url,web_timeout=10):
 
