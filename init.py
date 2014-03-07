@@ -22,7 +22,7 @@ def ghostCapture(screen_url,web_timeout=10):
     return img_path
 
 def usage(prog):
-    print("usage: %s url"%prog)
+    print("usage: %s uri"%prog)
 
 if __name__ == "__main__":
     import sys
@@ -30,12 +30,14 @@ if __name__ == "__main__":
     host=None
     try:
         url = sys.argv[1] 
+        if not url.startswith("http"):
+            url="http://"+url
         host=urlparse(url).netloc
     except Exception,e:
         print(e)
         usage(sys.argv[0])
         sys.exit(1)
-
+    print("Capturing '%s'"%url)
     image_path=ghostCapture(url)
     import pyimgur
     im = pyimgur.Imgur(CLIENT_ID)
